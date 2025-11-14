@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="uk">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="hero.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+	<title>Сайт групи І-22</title>
+	<!--
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+	-->
+</head>
+<body>
+<!--
+Чудова ідея! Односторінковий сайт (лендінг) – це ідеальний формат для академічної групи. Він дозволяє зібрати всю ключову інформацію в одному місці, щоб вона була доступною і для студентів, і для викладачів.
+
+Ось деталізована структура та варіанти наповнення, які можна використати. Сайт можна уявити як набір логічних блоків, що йдуть один за одним.
+
+### **Структура та Наповнення Односторінкового Сайту Групи**
+
+--->
+
+<!--
+#### **1. Шапка сайту (Header)**
+Це фіксований елемент, який залишається видимим при прокручуванні сторінки.
+* **Назва групи та логотип:** Наприклад, "Група І-22" та логотип університету.
+* **Навігаційне меню:** Посилання, які плавно переносять до відповідних блоків на сторінці: `Про нас`, `Розклад`, `Новини`, `Матеріали`, `Контакти`.
+
+--->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img src="img/logo.png" width="50px"> Група І-22</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#about">Про нас</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#rozklad">Розклад</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#news">Новини</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#sklad">Склад групи (за паролем)</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#materialy">Матеріали</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contacts">Контакти</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--
+#### **2. Головний екран (Hero Section)**
+Перше, що бачить відвідувач. Мета – справити позитивне враження.
+* **Фонове зображення: img/photo.png** Якісне та живе спільне фото групи.
+* **Заголовок:** Велика, чітка назва групи (напр., "Академічна група І-22").
+* **Підзаголовок:** Короткий девіз, опис спеціальності або вітальне речення. Наприклад: "Майбутні інженери програмного забезпечення" або "Ласкаво просимо на офіційну сторінку нашої групи!".
+* **Кнопка заклику до дії (CTA):** Наприклад, кнопка "Дізнатись більше", яка плавно прокручує сторінку до наступного блоку.
+
+--->
+
+
+<section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="container text-center text-md-left" data-aos="fade-up">
+        <h1>Академічна група І-22</h1>
+        <h2>Майбутні інженери програмного забезпечення</h2>
+        <h3 id="timer">Тут буде відлік до зимової сесії 2025 року</h3>
+        <a href="#about" class="btn-get-started scrollto">Дізнатись більше</a>
+    </div>
+</section>
+
+
+<script>
+	const name = function () {
+		// опрацювання дат
+		let countDownDate = new Date("Dec 15, 2025 00:00:01").getTime();
+		let now = new Date().getTime();
+		let distance = countDownDate - now;
+		
+		let divtimer = document.getElementById("timer");
+		if (distance <=0)
+			divtimer.innerHTML = "Сессія прийшла!";
+		else {
+			let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+			divtimer.innerHTML = "До сесії залишилось " + days + " діб, " + hours + " годин, "
+		+ minutes + " хвилин, " + seconds + " секунд";
+		}
+	}
+	
+	setInterval(name, 5000);
+	
+	/* Припустимо, що 'now' - це об'єкт Date, як у вашому прикладі */
+	const now = new Date();
+
+	if (now.getDay() === 6 || now.getDay() === 0) { // 6 - субота, 0 - неділя
+	    // 1. Обираємо елементи, чий шрифт потрібно змінити
+	    const elementsToChange = document.querySelectorAll(
+		'#hero h1, #hero h2, #hero h3'
+	    );
+
+	    // 2. Ітеруємося по елементах і змінюємо font-family
+	    elementsToChange.forEach(element => {
+		// Змінюємо font-family безпосередньо через властивість style
+		element.style.fontFamily = '"Pacifico", cursive'; 
+	    });
+	    
+	}	
+	
+</script>
+
+
+<section id="about" class="py-5">
+<!--
+#### **3. Блок "Про групу"**
+Коротка інформація, яка знайомить з колективом.
+* **Загальна інформація:** Назва спеціальності, факультет/інститут, рік вступу, орієнтовний рік випуску.
+* **Куратор групи:** ПІБ, фото, посада, посилання на email або сторінку на сайті університету.
+* **Староста та профорг:** ПІБ, фото, контактна інформація (email, Telegram).
+* **Кілька слів про групу:** Невеликий текст (2-3 речення) про особливості групи: "Ми дружні, активні, беремо участь у студентському житті..." і т.д.
+* **Статистика (за бажанням):** Інфографіка: "В нашій групі: 25 студентів, 10 відмінників, 5 переможців олімпіад" тощо.
+--->
+    <div class="container">
+        <h2 class="text-center mb-5">Про нашу групу: І-22</h2>
+        
+        <div class="row g-4 mb-5 align-items-center">
+            <div class="col-lg-6">
+                <div class="p-4 bg-light rounded shadow-sm">
+                    <h4 class="mb-3">
+                        <i class="bi bi-info-circle-fill me-2"></i>Загальна інформація
+                    </h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><strong>Спеціальність:</strong> 014 Середня освіта (Інформатика)</li>
+                        <li class="mb-2"><strong>Факультет:</strong> фізико-математичний</li>
+                        <li class="mb-2"><strong>Рік вступу:</strong> 2022</li>
+                        <li><strong>Орієнтовний рік випуску:</strong> 2026</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://kdpu.edu.ua/images/personal/563.jpg" class="img-fluid rounded-start h-100" alt="Фото куратора">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Куратор групи</h5>
+                                <p class="card-text"><strong>Закарлюка Ірина Станіславівна</strong></p>
+                                <p class="card-text"><small class="text-muted">Кандидат педагогічних наук, доцент</small></p>
+                                <a href="mailto:irinazakar@kdpu.edu.ua" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-envelope-fill me-1"></i> Email
+                                </a>
+                                <a href="https://kdpu.edu.ua/personal/iszakarliuka.html" target="_blank" class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-person-circle me-1"></i> Профіль
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="card text-center shadow-sm">
+                    <img src="https://placehold.co/250x250/343a40/ffffff?text=%D0%A4%D0%BE%D1%82%D0%BE%20%D1%81%D1%82%D1%83%D0%B4%D0%B5%D0%BD%D1%82%D0%B0" class="card-img-top" alt="Фото старости">
+                    <div class="card-body">
+                        <h5 class="card-title">Староста</h5>
+                        <p class="card-text">Добрун Станіслав</p>
+                        <div>
+                            <a href="mailto:example@email.com" class="btn btn-link"><i class="bi bi-envelope"></i> Email</a>
+                            <a href="#" class="btn btn-link"><i class="bi bi-telegram"></i> Telegram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card text-center shadow-sm">
+                    <img src="https://placehold.co/250x250/343a40/ffffff?text=%D0%A4%D0%BE%D1%82%D0%BE%20%D1%81%D1%82%D1%83%D0%B4%D0%B5%D0%BD%D1%82%D0%B0" class="card-img-top" alt="Фото профорга">
+                    <div class="card-body">
+                        <h5 class="card-title">Профорг</h5>
+                        <p class="card-text">Прізвище Ім'я</p>
+                         <div>
+                            <a href="mailto:example@email.com" class="btn btn-link"><i class="bi bi-envelope"></i> Email</a>
+                            <a href="#" class="btn btn-link"><i class="bi bi-telegram"></i> Telegram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mb-5">
+            <h3><i class="bi bi-chat-quote-fill"></i> Декілька слів про нас</h3>
+            <p class="lead">
+                Ми — дружна та згуртована група майбутніх вчителів інформатики. Нас об'єднує жага до нових знань у сфері ІТ та бажання ділитися ними з іншими. Ми завжди готові до нових викликів, активно беремо участь у студентському житті факультету та університету.
+            </p>
+        </div>
+
+        <div class="row text-center g-4">
+            <h3 class="mb-0">Наша група в цифрах</h3>
+            <div class="col-md-4">
+                <div class="p-4 bg-primary text-white rounded shadow">
+                    <i class="bi bi-people-fill display-4"></i>
+                    <h3 class="my-2">13 студентів</h3>
+                    <p class="mb-0">Навчаються на бюджеті</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 bg-success text-white rounded shadow">
+                    <i class="bi bi-gender-ambiguous display-4"></i>
+                    <h3 class="my-2">10 хлопців та 3 дівчат</h3>
+                    <p class="mb-0">Гендерний склад групи</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 bg-info text-white rounded shadow">
+                     <i class="bi bi-star-fill display-4"></i>
+                    <h3 class="my-2">ТОП-3</h3>
+                    <p class="mb-0">Студенти з найвищим балом</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="rozklad">
+rozklad<img src="img/logo.png">
+<!--
+#### **4. Розклад занять**
+Один з найважливіших та найвідвідуваніших блоків.
+* **Інтерактивний розклад:** Найкращий варіант — вбудований Google Calendar або віджет з розкладом, який легко оновлювати.
+* **Табличний вигляд:** Проста таблиця з розкладом на поточний тиждень (або з можливістю перемикання "чисельник/знаменник"). Важливо, щоб його було легко читати з мобільних пристроїв.
+* **Посилання на офіційний розклад:** Обов'язково додайте посилання на сторінку з розкладом на сайті університету, оскільки там інформація є найбільш офіційною.
+
+--->
+</section>
+
+<section id="news">
+
+<!--
+#### **5. Новини та Оголошення**
+Динамічний блок, який показує, що сайт "живий".
+* **Стрічка новин:** Короткі повідомлення у форматі "Дата – Заголовок – Текст".
+    * *Приклади:* зміни у розкладі, анонси контрольних чи іспитів, нагадування про дедлайни, оголошення про збори групи, вітання з днем народження.
+* **Важливі повідомлення:** Можливість закріпити найважливіше оголошення вгорі блоку.
+
+	https://newsapi.org/ API = ac54ce87d7a641898ef609674b95593b
+	
+	
+
+--->
+	<div id="mynews"></div>
+	<script>
+	const API_KEY = "98fb0b9bfb1143aca8bca5b3faa0ea98";
+	
+	async function updatenews() {
+		let yesterday = new Date(now);
+		yesterday.setTime(now.getTime() - 1000 * 60 * 60 * 24);
+		const curdate = yesterday.getFullYear()+"-"+(yesterday.getMonth()+1)+"-"+yesterday.getDate();
+		
+		//const request = "https://newsapi.org/v2/everything?q=Ukraine&from=" + curdate + "&sortBy=publishedAt&apiKey=ac54ce87d7a641898ef609674b95593b";
+		
+		const request = "https://gnews.io/api/v4/search?q=Ukraine&lang=uk&max=5&apikey=" + API_KEY;
+		try {
+			const response = await fetch(request); // 1. Чекаємо на відповідь від сервера
+
+		    	const news = await response.json();     // 2. Чекаємо на перетворення даних у JSON
+		    	
+		    	console.log(response);
+		    	console.log(news);
+		    	
+		    	const mynews = document.getElementById("mynews");
+		    	if(news["errors"]===undefined) {
+			    	//mynews.innerHTML = "Отримано новин: " + 	news["totalResults"];
+			    	///..
+			    	
+			    	str = "";
+			    	news["articles"].forEach(article => {
+			    		str += article["title"] + "<p>";
+			    		//"description"
+			    		//"content"
+			    		//"url"
+			    		//"image"
+					
+				    });
+				 
+				 mynews.innerHTML = str;
+			}
+			else {
+			    	mynews.innerHTML = news["errors"];
+			}
+		}
+		catch (error) {
+			console.log("Помилка:", error.message);
+		}
+	}
+	
+	updatenews();
+	</script>
+</section>
+
+
+<!--
+#### **6. Склад групи**
+Допомагає краще познайомитись та швидко знайти контакти одногрупників.
+* **Список студентів:** Таблиця або сітка з картками.
+* **Інформація на картці студента:**
+    * ПІБ.
+    * Фото (невелике, в єдиному стилі). **Важливо: отримати згоду на публікацію фото!**
+    * Роль у групі (староста, заступник і т.д.).
+    * Контактний email (за бажанням та згодою).
+
+--->
+<section id="sklad" class="py-5 bg-light">
+	<label for="username">Ваш логін для доступу до секції:</label>
+	<input type="text" id="username" name="name" required minlength="1" maxlength="20" size="21" autocomplete="username" />
+	<br/>
+	<label for="password">Ваш пароль для доступу до секції:</label>
+	<input type="password" id="password" name="pass" required minlength="1" maxlength="20" size="21" autocomplete="current-password" />
+	<br/>
+	<input type="button" name="button" value="Увійти до секції" onclick="entersection()" />
+	<script src="section_hidden.js"></script>
+
+</section>
+
+<section id="materialy">
+mmmmmmmmmmmm<img src="img/logo.png">
+
+<!--
+#### **7. Навчальні матеріали / Корисні посилання**
+Найкорисніший блок для навчання.
+* **Посилання на хмарне сховище:** Посилання на Google Drive, Dropbox чи OneDrive, де зберігаються лекції, практичні, методички, книги. Бажано структурувати за предметами.
+* **Список посилань:**
+    * Посилання на систему дистанційного навчання (Moodle, Blackboard).
+    * Посилання на бібліотеку університету.
+    * Корисні освітні ресурси, онлайн-курси, професійні сайти за фахом.
+* **Електронний журнал (за наявності):** Посилання на систему, де виставляють оцінки.
+
+--->
+</section>
+
+<section id="gallery">
+gallery<img src="img/logo.png">
+
+<!--
+#### **8. Фотогалерея**
+Емоційний блок, що демонструє студентське життя.
+* **Сітка фотографій:** Зображення з посвяти, свят, екскурсій, спільних походів у кафе чи на природу.
+* **Альбоми:** Можна згрупувати фото за подіями ("Посвята 2023", "Новий рік 2024").
+* **Відео:** Посилання на YouTube-відео, якщо є відеоролики про життя групи.
+
+--->
+</section>
+
+<section id="contacts">
+contacts<img src="img/logo.png">
+
+<!--
+#### **9. Контакти**
+Як зв'язатися з представниками групи.
+* **Контактні особи:** Ще раз продублювати контакти старости та куратора (email, посилання на соцмережі). **Не варто публікувати особисті номери телефонів.**
+* **Посилання на груповий чат:** Іконка та посилання на чат групи в Telegram, Viber чи іншому месенджері.
+* **Форма зворотного зв'язку (опціонально):** Проста форма, через яку можна надіслати анонімне запитання або пропозицію старості.
+
+--->
+</section>
+
+<!--
+#### **10. Підвал сайту (Footer)**
+Завершальний блок сторінки.
+* **Копірайт:** "© 2025, [Назва групи]".
+* **Посилання на сайт університету/факультету.**
+* **Авторство:** "Сайт розроблено студентом [Ім'я Прізвище]" (якщо це так).
+* **Іконки соціальних мереж:** Якщо є спільна сторінка в Instagram чи Facebook.
+
+### **Технічні та візуальні поради**
+
+* **Платформа:** Для створення такого сайту ідеально підійдуть конструктори як **Tilda**, **Wix**, **Carrd** або навіть **GitHub Pages**, якщо хтось у групі володіє базовими навичками HTML/CSS.
+* **Адаптивність:** Сайт має однаково добре виглядати на комп'ютері, планшеті та смартфоні. Більшість студентів будуть заходити з телефонів.
+* **Візуальний стиль:** Дотримуйтесь мінімалізму. Використовуйте кольори вашого університету чи факультету. Шрифти мають бути читабельними.
+* **Оновлення:** Найважливіше — регулярно оновлювати інформацію (особливо розклад та новини). Призначте відповідальну людину або кількох.
+
+Створення такого сайту може стати чудовим командним проєктом для самої групи!
+-->
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
+

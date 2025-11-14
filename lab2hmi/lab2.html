@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Наївний баєсів класифікатор</title>
+    <!--<link rel="stylesheet" type="text/css" href="https://diia.gov.ua/combine/44261ff286f3cd30e7cdd7bb96061748-1757409976"/ nonce="NGNYjOO2oQvZs2fPR1fPFNUKBYLwVyKK">-->
+
+    <style>
+		    /* CSS */
+		.custom-file-upload {
+		    /* Стилі для вашого красивого напису (замість стандартної кнопки) */
+		    border: 1px solid #ccc;
+		    display: inline-block;
+		    padding: 6px 12px;
+		    cursor: pointer;
+		    background-color: #f0f0f0;
+		    border-radius: 4px;
+		    /* Додайте інші стилі за бажанням */
+		}
+
+		/* Приховуємо справжню кнопку завантаження файлу */
+		#modelFile {
+		    width: 0.1px;
+		    height: 0.1px;
+		    opacity: 0;
+		    overflow: hidden;
+		    position: absolute;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body>
+
+    <h1>Наївний баєсів класифікатор, навчений у Python</h1>
+    <label for="modelFile" class="custom-file-upload">Оберіть файл моделі</label>
+    <input type="file" id="modelFile" accept=".json" onchange="loadModel(event)" value="Оберіть файл моделі"><br><br>
+
+    <textarea id="tweetInput" rows="4" cols="50"></textarea><br>
+    <button onclick="classifyTweet()">Визначити тональність</button>
+    <p id="result"></p>
+    <script type="text/javascript" src="lab2.js"></script>
+</body>
+</html>
+

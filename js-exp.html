@@ -1,0 +1,76 @@
+<html>
+	<head></head>
+	<body>
+		<style>
+			.styled {
+			  border: 0;
+			  line-height: 2.5;
+			  padding: 0 20px;
+			  font-size: 1rem;
+			  text-align: center;
+			  color: white;
+			  text-shadow: 1px 1px 1px black;
+			  border-radius: 10px;
+			  background-color: tomato;
+			  background-image: linear-gradient(
+			    to top left,
+			    rgb(0 0 0 / 0.2),
+			    rgb(0 0 0 / 0.2) 30%,
+			    transparent
+			  );
+			  box-shadow:
+			    inset 2px 2px 3px rgb(255 255 255 / 0.6),
+			    inset -2px -2px 3px rgb(0 0 0 / 0.6);
+			}
+
+			.styled:hover {
+			  background-color: red;
+			}
+
+			.styled:active {
+			  box-shadow:
+			    inset -2px -2px 3px rgb(255 255 255 / 0.6),
+			    inset 2px 2px 3px rgb(0 0 0 / 0.6);
+			}
+
+		</style>
+		
+		<label for="username">Уведіть Ваше ім'я:</label>
+		<input type="text" id="username" name="username">
+		<button class="favorite styled" type="button" onclick="greet()">Натисни на мене</button>
+		<div id="message">Це повідомлення Ви бачите до натискання на кнопку</div>
+
+		<script>
+			// Однорядковий коментар
+			/* Багаторядковий
+			коментар */
+			let userName = "Iван";
+			const PI = 3.14159;
+			
+			const divmsg = document.getElementById("message");
+			const input_str = document.getElementById("username");
+			
+			function greet() {
+				//console.log("Привiт, " + name);
+				const name = input_str.value;
+				if (name == "") {
+					alert("Ви маєте увести значення перед натискання кнопки")
+				}
+				else {
+					divmsg.innerText = "Привiт, " + name;
+				}
+			}
+			
+			//greet(userName);
+			
+			let user = {
+				name: "Олена",
+				age: 25
+			};
+			//console.log(user.name); // Олена
+		</script>
+		
+	</body>
+</html>
+
+

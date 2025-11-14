@@ -1,0 +1,135 @@
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Склад нашої групи</h2>
+            <p class="lead text-muted">Знайомтеся з майбутніми геніями коду та педагогіки!</p>
+            <p class="small fst-italic">
+                <strong>Важливо:</strong> Усі фото та контактні дані опубліковані за особистою згодою студентів.
+            </p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow border-primary">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Добрун Станіслав" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Добрун Станіслав Сергійович</h5>
+                        <p class="mb-2"><span class="badge bg-primary">Староста групи</span></p>
+                        <a href="mailto:dobrun.s@example.com" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-envelope"></i> Написати
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Распутняк Руслан" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Распутняк Руслан Павлович</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Оксаніч Михайло" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Оксаніч Михайло Андрійович</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Сливкіна Ірина" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Сливкіна Ірина Вікторівна</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Крипак Максим" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Крипак Максим Анатолійович</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Самченко Микита" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Самченко Микита Сергійович</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Лисенко Дмитро" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Лисенко Дмитро Володимирович</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Гріценко Анастасія" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Гріценко Анастасія Олександрівна</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Долматов Кирило" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Долматов Кирило Денисович</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Остащенко Богдан" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Остащенко Богдан Олександрович</h5>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Бакун Максим" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Бакун Максим Володимирович</h5>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Підгайко Сергій" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Підгайко Сергій Володимирович</h5>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="https://placehold.co/120x120/EFEFEF/333?text=Фото" class="rounded-circle mb-3" alt="Фото Іванченко Олександра" style="width: 120px; height: 120px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Іванченко Олександра Віталіївна</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+

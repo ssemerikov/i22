@@ -1,0 +1,100 @@
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+#hero {
+  width: 100%;
+  height: 100vh; /* Робить секцію на всю висоту екрану */
+  background: url('img/photo.png') top center; /* Шлях до вашого зображення */
+  background-size: cover;
+  position: relative;
+}
+
+/* Ефект накладання для затемнення фону, щоб текст було краще видно */
+#hero:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.3); /* Чорний колір з 60% прозорістю */
+  position: absolute;
+  bottom: 0;
+  top: 250px;
+  left: 0;
+  right: 0;
+}
+
+#hero .container {
+  position: relative;
+  z-index: 2;
+  text-align: center; /* Центрування тексту */
+}
+
+#hero h1 {
+  margin: 0 0 100px 0;
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 56px;
+  color: #80ffff;
+}
+
+#hero h2 {
+  color: #eee; /* Світло-сірий колір для підзаголовка */
+  margin-bottom: 50px;
+  font-size: 32px;
+  font-family: "Bad Script", sans-serif;
+}
+
+#hero h3 {
+  color: #ff0000; /* Червоний колір для підзаголовка */
+  margin-bottom: 50px;
+  font-size: 24px;
+  font-family: "Bad Script", sans-serif;
+}
+
+#hero h2:hover {
+  color: #eee; /* Світло-сірий колір для підзаголовка */
+  margin-bottom: 50px;
+  font-size: 64px;
+  font-family: "Bad Script", sans-serif;
+}
+
+#hero .btn-get-started {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: #fff;
+  background: #007bff; /* Основний колір Bootstrap */
+  text-decoration: none;
+}
+
+#hero .btn-get-started:hover {
+  background: #0056b3; /* Затемнений колір при наведенні */
+}
+
+/* Адаптивність для менших екранів */
+@media (max-width: 768px) {
+  #hero h1 {
+    font-size: 32px;
+    line-height: 36px;
+  }
+  #hero h2 {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 30px;
+  }
+  #hero h3 {
+    font-size: 14px;
+  }
+  #hero .btn-get-started {
+	  font-size: 12px;
+	  padding: 5px 15px;
+	}
+#hero h2:hover {
+  font-size: 24px;
+}
+
+
+}
+
