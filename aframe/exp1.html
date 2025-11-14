@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>A-Frame, експеримент 1</title>
+</head>
+<body>
+    <a-scene>
+      <a-assets>
+        <a-asset-item id="telescope" src="../img/telescope.glb"></a-asset-item>
+        <img id="panorama" src="../img/360-pano-UArizona-Bok-2-3m-Telescope-007-CC.jpg">
+        <video id="cycles" 
+              src="../img/Cycles%20in%20the%20Sky_%20Crash%20Course%20Astronomy%20%233.mp4" 
+              crossorigin="anonymous" loop muted autoplay playsinline webkit-playsinline></video>
+      </a-assets>
+      <!-- GLB model: -->
+      <a-entity gltf-model="#telescope"
+                position="-3 0 -3"
+                rotation="0 180 0"
+                scale="2 2 2"
+                animation="property: position; from: -3 0 -3; to: 3 0 -3; loop: true; dur: 6000; easing: linear">
+      </a-entity>
+
+      <a-box position="-2 0.5 -3" rotation="0 45 0" src="../img/semerikov.jpg"
+          animation="property: rotation; to: 0 405 0; loop: true; dur: 8000; easing: linear">
+      </a-box>
+
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"
+                animation="property: material.color; from: red; to: green; loop: true; dur: 8000">
+      </a-sphere>
+      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+      <a-video src="#cycles" position="-12 1 -4.5" rotation="0 60 0" width="4" height="4"></a-video>
+      <a-sky color="#cfe9ff" src="#panorama"></a-sky>
+    </a-scene>
+</body>
+</html>
