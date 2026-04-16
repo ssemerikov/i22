@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Dolce Vita - Італійський ресторан</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="bi bi-journal-richtext text-warning"></i> La Dolce Vita</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">Про нас</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#menu">Меню</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Галерея</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Контакти</a></li>
+                    <li class="nav-item ms-lg-3"><a class="btn btn-warning text-dark fw-bold" href="#reservation">Бронювання</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="masthead d-flex align-items-center">
+        <div class="container px-4 px-lg-5 text-center">
+            <h1 class="mb-1 text-white display-1 font-serif">Справжня Італія</h1>
+            <h3 class="mb-5 text-white-50">У серці твого міста</h3>
+            <a class="btn btn-primary btn-xl" href="#menu">Переглянути меню</a>
+        </div>
+    </header>
+
+    <section class="content-section bg-light" id="about">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-lg-6">
+                    <img class="img-fluid rounded shadow mb-5 mb-lg-0" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Шеф-кухар">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-heading mb-4">Наша Історія</h2>
+                    <p class="lead mb-4">Заснований у 1995 році родиною Россі, ресторан "La Dolce Vita" приносить автентичні смаки Тоскани на ваш стіл. Ми використовуємо лише свіжі інгредієнти, імпортовані безпосередньо з Італії, та бабусині рецепти, перевірені часом.</p>
+                    <div class="d-flex gap-4">
+                        <div class="text-center">
+                            <i class="bi bi-award fs-1 text-warning"></i>
+                            <p>Michelin Guide</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="bi bi-clock-history fs-1 text-warning"></i>
+                            <p>25+ років</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section" id="menu">
+        <div class="container px-4 px-lg-5">
+            <div class="text-center mb-5">
+                <h2 class="section-heading">Наше Меню</h2>
+                <h3 class="section-subheading text-muted">Скуштуйте досконалість</h3>
+            </div>
+
+            <ul class="nav nav-pills justify-content-center mb-5" id="menuTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active rounded-pill px-4" id="pills-main-tab" data-bs-toggle="pill" data-bs-target="#pills-main" type="button" role="tab">Основні страви</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link rounded-pill px-4" id="pills-pizza-tab" data-bs-toggle="pill" data-bs-target="#pills-pizza" type="button" role="tab">Піца</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link rounded-pill px-4" id="pills-dessert-tab" data-bs-toggle="pill" data-bs-target="#pills-dessert" type="button" role="tab">Десерти</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-main" role="tabpanel">
+                    <div class="row g-4">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card h-100 dish-card">
+                                <img src="https://images.unsplash.com/photo-1546549032-9571cc6b27fc?auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Паста">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title font-serif">Паста Карбонара</h5>
+                                    <p class="card-text text-muted">Спагеті, гуанчіале, яйце, пармезан, чорний перець.</p>
+                                    <h5 class="text-warning fw-bold">280 грн</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card h-100 dish-card">
+                                <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Лазанья">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title font-serif">Лазанья Болоньєзе</h5>
+                                    <p class="card-text text-muted">Листи пасти, м'ясний рагу, соус бешамель.</p>
+                                    <h5 class="text-warning fw-bold">320 грн</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card h-100 dish-card">
+                                <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Стейк">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title font-serif">Стейк Флорентіна</h5>
+                                    <p class="card-text text-muted">Яловичий стейк на грилі, розмарин, оливкова олія.</p>
+                                    <h5 class="text-warning fw-bold">650 грн</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="pills-pizza" role="tabpanel">
+                     <div class="row g-4">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card h-100 dish-card">
+                                <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Піца">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title font-serif">Маргарита</h5>
+                                    <p class="card-text text-muted">Томатний соус, моцарела, базилік.</p>
+                                    <h5 class="text-warning fw-bold">220 грн</h5>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+                
+                <div class="tab-pane fade" id="pills-dessert" role="tabpanel">
+                    <p class="text-center">Найсмачніше тірамісу в місті...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-dark text-white" id="gallery">
+        <div class="container text-center">
+            <h2 class="section-heading mb-5">Інтер'єр</h2>
+            <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner rounded shadow-lg">
+                    <div class="carousel-item active">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Інтер'єр 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Інтер'єр 2">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section" id="reservation">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-5">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card shadow border-0">
+                        <div class="card-header bg-warning text-center py-4">
+                            <h3 class="font-serif m-0">Забронювати столик</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <form>
+                                <div class="mb-3">
+                                    <label class="form-label">Ваше ім'я</label>
+                                    <input type="text" class="form-control" placeholder="Іван Петренко" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Телефон</label>
+                                    <input type="tel" class="form-control" placeholder="+380..." required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label">Дата</label>
+                                        <input type="date" class="form-control" required>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label">Час</label>
+                                        <input type="time" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Кількість гостей</label>
+                                    <select class="form-select">
+                                        <option>2 особи</option>
+                                        <option>4 особи</option>
+                                        <option>6+ осіб</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-dark w-100 py-3">Підтвердити бронювання</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6" id="contact">
+                    <h2 class="section-heading mb-4">Де нас знайти</h2>
+                    <p class="lead"><i class="bi bi-geo-alt-fill text-warning me-2"></i> м. Київ, вул. Хрещатик, 1</p>
+                    <p class="lead"><i class="bi bi-telephone-fill text-warning me-2"></i> +380 (44) 123-45-67</p>
+                    <p class="lead mb-4"><i class="bi bi-clock-fill text-warning me-2"></i> Пн-Нд: 10:00 - 23:00</p>
+                    
+                    <div class="map-container rounded overflow-hidden shadow">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2540.547781561563!2d30.520979315731385!3d50.44957297947514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4ce56b2456d4b%3A0xd062c5432929007e!2z0JzQsNC50LTQsNC9INCd0LXQt9Cw0LvQtdC20L3QvtGB0YLRliwg0JrQuNGX0LIsIDAyMDAw!5e0!3m2!1suk!2sua!4v1634567890000!5m2!1suk!2sua" 
+                                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer py-4 bg-dark text-white-50 text-center">
+        <div class="container">
+            <small>&copy; 2025 La Dolce Vita. Всі права захищені.</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

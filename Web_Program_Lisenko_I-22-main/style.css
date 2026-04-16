@@ -1,0 +1,70 @@
+/* Основні налаштування */
+body {
+    font-family: 'Lato', sans-serif;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6, .font-serif {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Навігація */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+}
+
+/* Hero Section */
+.masthead {
+    min-height: 100vh;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    /* Якісне фото пасти або піци на фон */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Кнопки */
+.btn-primary {
+    background-color: #d35400; /* Темно-оранжевий */
+    border-color: #d35400;
+}
+
+.btn-primary:hover {
+    background-color: #e67e22;
+    border-color: #e67e22;
+}
+
+/* Секції */
+.content-section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+/* Картки меню */
+.dish-card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.dish-card:hover {
+    transform: translateY(-10px); /* Ефект підняття */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.dish-card img {
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Tabs */
+.nav-pills .nav-link.active {
+    background-color: #d35400;
+}
+.nav-pills .nav-link {
+    color: #333;
+    font-weight: bold;
+}
