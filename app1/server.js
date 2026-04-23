@@ -53,12 +53,37 @@ const server = http.createServer((req, res) => {
     }
     else if(pathname === "/api/books" && method === "POST") {
         // додати книгу
-        
-        //res.end(JSON.stringify(books));
-        res.end();
-        res.statusCode = 201;
+        let body = "";
+        req.on("data", chunk => {
+            body += chunk;//.toString();
+        });
+        req.on("end", () => {
+            const newBook = JSON.parse(body);
+            newBook.id = books.length + 1;
+            books.push(newBook);
+            res.statusCode = 201;
+            res.end(JSON.stringify(newBook));
+            console.log("Додано нову книгу:", newBook);
+        });
     }
+    else if(pathname.startsWith("/api/books") && method === "DELETE") {
+        //видалення книги
+        const id = parseInt(pathname.split("/").pop()); // отримуємо id з URL: [3]
+        books = books.filter(book => book.id !== id);
+        console.log(`Книга з id ${id} видалена`);
+        res.end(JSON.stringify(
+            { success: true, message: `Книга з id ${id} видалена`}
+        ));        
+     }
+     else if(pathname === "/api/health" && method === "GET") {
+            res.end(JSON.stringify(
+                { success: true, message: "Сервер працює",
+                    timestamp: new Date().toISOString()
+                 }
+            ));
+        }
     else {
+        res.statusCode = 404;
         res.end(JSON.stringify(
             {   
                 pathname: pathname,
