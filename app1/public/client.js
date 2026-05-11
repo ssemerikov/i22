@@ -1,6 +1,6 @@
 const API_URL = 'http://localhost:3000/api/books';
 
-//const API_URL = 'https://24e2-193-151-15-243.ngrok-free.app/api/books';
+//const API_URL = 'http://c9e4-193-151-15-243.ngrok-free.app/api/books';
 
 // завантаження книжок при старті документу
 document.addEventListener("DOMContentLoaded", loadBooks);
@@ -90,5 +90,5 @@ function showStatus(message, type) {
     setTimeout(() => {
         statusDiv.textContent = '';
         statusDiv.className = '';
-    }, 3000);
+    }, 10000);
 }
