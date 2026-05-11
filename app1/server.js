@@ -18,7 +18,7 @@ books = JSON.parse(booksData);
 const mimeTypes = {
     '.html': 'text/html',
     '.css': 'text/css',
-    '.js': 'application/javascript',
+    '.jshttps://d85f-193-151-15-243.ngrok-free.app/api/health': 'application/javascript',
     '.json': 'application/json',
     '.png': 'image/png',
     '.jpg': 'image/jpeg',
@@ -47,11 +47,22 @@ const server = http.createServer((req, res) => {
 
     console.log(method, pathname);
 
+    if(pathname === "/api/health" && method === "GET") {
+            res.setHeader('Content-Type', 'application/json; charset=utf-8');
+            res.end(JSON.stringify(
+                { success: true, message: "Сервер працює",
+                    timestamp: new Date().toISOString()
+                 }
+            ));
+            return;
+    }
+
+
     res.statusCode = 200;
 
     // роутинг
     if(pathname === "/api/books" && method === "GET") {
-        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
         res.end(JSON.stringify(books));
         return;
     }
@@ -69,7 +80,7 @@ const server = http.createServer((req, res) => {
             books.push(newBook);
             // зберегти оновлений список книжок у файл
             fs.writeFileSync('books.json', JSON.stringify(books, null, 2), 'utf8');
-            res.setHeader('Content-Type', 'application/json');
+            res.setHeader('Content-Type', 'application/json; charset=utf-8');
             res.statusCode = 201;
             res.end(JSON.stringify(newBook));
             console.log("Додано нову книгу:", newBook);
@@ -84,36 +95,48 @@ const server = http.createServer((req, res) => {
         // зберегти оновлений список книжок у файл
         fs.writeFileSync('books.json', JSON.stringify(books, null, 2), 'utf8');
         console.log(`Книга з id ${id} видалена`);
-        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
         res.end(JSON.stringify(
             { success: true, message: `Книга з id ${id} видалена`}
         ));   
         return;     
     }
     
-    // обробка статичних файлів (HTML, CSS, JS) -- недороблено, не працює
-    const publicPath = path.join(__dirname, 'public');
-    let filePath = path.join(publicPath, pathname === '/' ? 'index.html' : pathname);
+    // обробка статичних файлів (HTML, CSS, JS)
+    let filePath = pathname === '/' ? 'index.html' : pathname;
+    filePath = path.join(__dirname, 'public', filePath);
     const ext = path.extname(filePath);
-    const contentType = mimeTypes[ext] || 'application/octet-stream';
+    const contentType = mimeTypes[ext] || 'text/plain';
+    console.log("Запит на файл:", filePath);
+    console.log("Content-Type:", contentType);
 
     fs.readFile(filePath, (err, content) => {
         if (err) {
-            res.statusCode = 404;
-            res.end('Файл не знайдено');
-        } else {
-            res.setHeader('Content-Type', contentType);
+            if (err.code === 'ENOENT') {
+                res.statusCode = 404;
+                res.setHeader('Content-Type', 'text/html; charset=utf-8');
+                res.end('<h1>404 - файл не знайдено</h1>');
+            }
+            else {
+                res.statusCode = 500;
+                res.setHeader('Content-Type', 'text/html; charset=utf-8');
+                res.end('<h1>500 - внутрішня помилка сервера</h1>');
+            }
+        }
+        else {
+            res.statusCode = 200;
+            if (contentType.startsWith('text/') || contentType === 'application/javascript' || contentType === 'application/json') {
+                res.setHeader('Content-Type', contentType + '; charset=utf-8');
+            } else {
+                res.setHeader('Content-Type', contentType);
+            }
             res.end(content);
         }
     });
 
-    if(pathname === "/api/health" && method === "GET") {
-            res.end(JSON.stringify(
-                { success: true, message: "Сервер працює",
-                    timestamp: new Date().toISOString()
-                 }
-            ));
-        }
+
+
+    /*
     else {
         res.statusCode = 404;
         res.end(JSON.stringify(
@@ -124,7 +147,6 @@ const server = http.createServer((req, res) => {
         ));
     }
 
-    /*
     */
 });
 
