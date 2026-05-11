@@ -1,1 +1,19 @@
 word_embeddings.pkl
+
+# Large model / training artifacts
+directory_on_my_computer/
+hmi_models/trained/
+hmi_models/data/
+
+# Archives and large binaries
+archive.zip
+*.mp4
+*.glb
+brown_training.pos
+brown_test.pos
+
+# Node
+node_modules/
+
+# IDE
+.vscode/
