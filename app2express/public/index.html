@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">  
+<html lang="uk">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,26 +7,154 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <h1>Ласкаво просимо до нашої бібліотеки</h1>
-        <div class="container">
-            <h2>У нас є багато книг для вас!</h2>
-            <div class="form-group">
-                <label for="add-book">Додавання книги:</label>
-                <input type="text" id="title"  
-                    placeholder="Введіть назву книги...">
-                <input type="text" id="author"  
-                    placeholder="Введіть ім'я автора...">
-                <button onclick="addBook()">Додати</button>    
+        <!-- Стартова сторінка -->
+        <div id="view-start" class="view">
+            <h1>Ласкаво просимо до нашої бібліотеки</h1>
+            <div class="start-buttons">
+                <button id="btn-reader" class="btn-primary" onclick="showView('view-reader')">Я читач</button>
+                <button id="btn-librarian" class="btn-secondary" onclick="showView('view-login')">Я бібліотекар</button>
             </div>
-            <!-- Список книг -->
-            <div id="book-list">
-                <h2>Список книг</h2>
-                <ul id="books-list"></ul>
-            </div>
-            <!-- Статус -->
-            <h2>Статус</h2>
-            <div id="status"></div>
         </div>
+
+        <!-- Форма входу -->
+        <div id="view-login" class="view hidden">
+            <div class="container">
+                <h2>Вхід для бібліотекаря</h2>
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-username">Логін:</label>
+                        <input type="text" id="login-username" placeholder="Введіть логін..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Пароль:</label>
+                        <input type="password" id="login-password" placeholder="Введіть пароль..." required>
+                    </div>
+                    <button type="submit" class="btn-primary">Увійти</button>
+                </form>
+                <button class="btn-link" onclick="showView('view-start')">Назад</button>
+                <div id="login-status"></div>
+            </div>
+        </div>
+
+        <!-- Режим читача -->
+        <div id="view-reader" class="view hidden">
+            <div class="container">
+                <div class="view-header">
+                    <h2>Каталог книг</h2>
+                    <button class="btn-link" onclick="logoutReader()">Вийти</button>
+                </div>
+
+                <!-- Пошук і сортування -->
+                <div class="search-toolbar">
+                    <input type="text" id="search-input" placeholder="Пошук за назвою, автором або жанром..." oninput="handleSearch('reader-book-list')">
+                    <select id="sort-select" onchange="handleSortChange('reader-book-list')">
+                        <option value="">Сортувати за...</option>
+                        <option value="title">Назвою</option>
+                        <option value="author">Автором</option>
+                        <option value="year">Роком</option>
+                        <option value="createdAt">Датою додавання</option>
+                    </select>
+                    <select id="order-select" onchange="handleSortChange('reader-book-list')">
+                        <option value="asc">За зростанням</option>
+                        <option value="desc">За спаданням</option>
+                    </select>
+                    <select id="reader-genre-select" onchange="handleSortChange('reader-book-list')">
+                        <option value="">Всі жанри</option>
+                    </select>
+                </div>
+
+                <ul id="reader-book-list" class="book-list"></ul>
+            </div>
+        </div>
+
+        <!-- Режим бібліотекаря -->
+        <div id="view-librarian" class="view hidden">
+            <div class="container">
+                <div class="view-header">
+                    <h2>Керування бібліотекою</h2>
+                    <div class="header-actions">
+                        <span id="user-info"></span>
+                        <button id="btn-admin-panel" class="btn-secondary hidden" onclick="showView('view-admin')">Панель адміністратора</button>
+                        <button class="btn-link" onclick="handleLogout()">Вийти</button>
+                    </div>
+                </div>
+
+                <!-- Пошук і сортування -->
+                <div class="search-toolbar">
+                    <input type="text" id="search-input" placeholder="Пошук за назвою, автором або жанром..." oninput="handleSearch('book-list')">
+                    <select id="sort-select" onchange="handleSortChange('book-list')">
+                        <option value="">Сортувати за...</option>
+                        <option value="title">Назвою</option>
+                        <option value="author">Автором</option>
+                        <option value="year">Роком</option>
+                        <option value="createdAt">Датою додавання</option>
+                    </select>
+                    <select id="order-select" onchange="handleSortChange('book-list')">
+                        <option value="asc">За зростанням</option>
+                        <option value="desc">За спаданням</option>
+                    </select>
+                    <select id="genre-select" onchange="handleSortChange('book-list')">
+                        <option value="">Всі жанри</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Додавання книги:</label>
+                    <input type="text" id="title" placeholder="Введіть назву книги...">
+                    <input type="text" id="author" placeholder="Введіть ім'я автора...">
+                    <input type="text" id="genre" placeholder="Жанр">
+                    <input type="number" id="year" placeholder="Рік" min="1000" max="2100" style="width: 80px">
+                    <button class="btn-primary" onclick="addBook()">Додати</button>
+                </div>
+
+                <h3>Список книг</h3>
+                <ul id="book-list" class="book-list"></ul>
+
+                <div id="status"></div>
+            </div>
+        </div>
+
+        <!-- Панель адміністратора -->
+        <div id="view-admin" class="view hidden">
+            <div class="container">
+                <div class="view-header">
+                    <h2>Панель адміністратора</h2>
+                    <button class="btn-link" onclick="showView('view-librarian')">Назад до бібліотеки</button>
+                </div>
+
+                <h3>Список користувачів</h3>
+                <div id="user-list-container">
+                    <table id="user-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Логін</th>
+                                <th>Роль</th>
+                                <th>Дата створення</th>
+                                <th>Дії</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-list"></tbody>
+                    </table>
+                </div>
+
+                <h3>Додати користувача</h3>
+                <form id="add-user-form" onsubmit="handleAddUser(event)">
+                    <div class="form-group">
+                        <input type="text" id="new-username" placeholder="Логін" required>
+                        <input type="password" id="new-password" placeholder="Пароль" required>
+                        <select id="new-role">
+                            <option value="reader">Читач</option>
+                            <option value="librarian">Бібліотекар</option>
+                            <option value="admin">Адміністратор</option>
+                        </select>
+                        <button type="submit" class="btn-primary">Додати користувача</button>
+                    </div>
+                </form>
+                <div id="admin-status"></div>
+            </div>
+        </div>
+
         <script src="client.js"></script>
     </body>
 </html>

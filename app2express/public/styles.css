@@ -1,46 +1,336 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
   font-family: Arial, sans-serif;
   background: #f5f7fb;
   color: #333;
+  line-height: 1.6;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 40px auto;
   padding: 0 16px;
 }
 
-table {
+h1 {
+  text-align: center;
+  color: #2d7aee;
+  margin: 32px 0 16px;
+}
+
+h2 {
+  color: #333;
+  margin: 24px 0 12px;
+}
+
+h3 {
+  margin: 20px 0 10px;
+  color: #444;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ─── Стартова сторінка ─── */
+
+#view-start {
+  text-align: center;
+  padding-top: 80px;
+}
+
+.start-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.start-buttons button {
+  padding: 16px 40px;
+  font-size: 18px;
+  border-radius: 8px;
+}
+
+/* ─── Кнопки ─── */
+
+.btn-primary {
+  background: #2d7aee;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #1a5ec9;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
+.btn-delete {
+  background: #e74c3c;
+  color: #fff;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+
+.btn-delete:hover {
+  background: #c0392b;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: #2d7aee;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px 12px;
+  text-decoration: underline;
+}
+
+.btn-link:hover {
+  color: #1a5ec9;
+}
+
+/* ─── Шапка виду ─── */
+
+.view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#user-info {
+  font-weight: 600;
+  color: #555;
+}
+
+/* ─── Форми ─── */
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  width: 100%;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group select {
+  flex: 1;
+  min-width: 150px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+form .form-group {
+  margin-bottom: 16px;
+}
+
+/* ─── Список книг ─── */
+
+.book-list {
+  list-style: none;
+  padding: 0;
+}
+
+.book-item {
+  background: #fff;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.book-info strong {
+  font-size: 16px;
+}
+
+.book-info small {
+  color: #666;
+}
+
+.book-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit {
+  background: #3498db;
+  color: #fff;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+
+.btn-edit:hover {
+  background: #2980b9;
+}
+
+.book-details small {
+  display: block;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* ─── Пошук і сортування ─── */
+
+.search-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.search-toolbar input[type="text"] {
+  flex: 2;
+  min-width: 200px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.search-toolbar select {
+  flex: 1;
+  min-width: 140px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* ─── Статус ─── */
+
+#status,
+#login-status,
+#admin-status {
+  padding: 12px;
+  border-radius: 6px;
+  margin: 16px 0;
+  font-weight: 500;
+}
+
+.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* ─── Таблиця користувачів ─── */
+
+#user-table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
 }
 
-thead {
-  background: #2d7aee;
-  color: #fff;
-}
-
-th,
-td {
-  padding: 14px 12px;
+#user-table th,
+#user-table td {
+  padding: 12px;
   text-align: left;
   border-bottom: 1px solid #e1e8f5;
 }
 
-th {
+#user-table thead {
+  background: #2d7aee;
+  color: #fff;
+}
+
+#user-table th {
   font-weight: 600;
 }
 
-tr:hover {
+#user-table tr:hover {
   background: #f1f7ff;
 }
 
-.caption {
-  margin-bottom: 16px;
-  font-size: 1.1rem;
+/* ─── Ролі ─── */
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
   font-weight: 600;
+}
+
+.role-reader {
+  background: #d4edda;
+  color: #155724;
+}
+
+.role-librarian {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.role-admin {
+  background: #f8d7da;
+  color: #721c24;
 }
