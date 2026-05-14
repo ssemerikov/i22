@@ -5,5 +5,19 @@
     "passwordHash": "f6fa014ef3e2d64d5ca9d96cab6b4d63:4dd9769516a7e6c213c9afd5a506653ec50750149d2587a821916f1b275257ee7f6538d9b544a014bbe7d93faf148352dd26b9a441a68d9b49545fda276ef0af",
     "role": "admin",
     "createdAt": "2026-05-14T00:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "username": "user",
+    "passwordHash": "04e8e1251c527a0a5385bb55116788e2:6f33d13df7051d2290f8d8e09f491718d2c2c71115e8d0437841cd0ce872ac97bc058385a1243d11c0195ace116ccc06aac26932cdfa58203ffd28751b75de87",
+    "role": "reader",
+    "createdAt": "2026-05-14T07:54:37.488Z"
+  },
+  {
+    "id": 3,
+    "username": "lib",
+    "passwordHash": "a48a094e4df9da52775165eed9f0f637:6f61c4bb8078a24fe6024565dc68b0dcbcca9d7d43f783af4d7a0845194ba195b22e7a5b643bdde36b38692dd1c70d15b7f42e85f05a0f591fed8b6db589ea42",
+    "role": "librarian",
+    "createdAt": "2026-05-14T07:57:09.059Z"
   }
 ]

@@ -33,10 +33,10 @@
   },
   {
     "id": 7,
-    "title": "Test",
-    "author": "Author",
-    "genre": "Тестове",
-    "year": 2024,
+    "title": "Зелений Марс",
+    "author": "Кім Стенлі Робінсон",
+    "genre": "Фантастика",
+    "year": 2003,
     "createdAt": "2026-05-14T00:00:00.000Z"
   },
   {
@@ -49,10 +49,10 @@
   },
   {
     "id": 9,
-    "title": "No Auth",
-    "author": "No Auth",
-    "genre": "Тестове",
-    "year": 2024,
+    "title": "No Auth 2",
+    "author": "No Auth 2",
+    "genre": "Тестове 2",
+    "year": 2028,
     "createdAt": "2026-05-14T00:00:00.000Z"
   },
   {
