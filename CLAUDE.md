@@ -11,15 +11,17 @@ This is a student portfolio repository for the "Web Programming" course at KDPU 
 The repo is a collection of independent subprojects, not a monolithic app:
 
 ### Web Servers (Node.js)
-- **app1/** — Books CRUD API built with raw Node.js `http` module. No framework. In-memory data loaded from `books.json` on startup. Port 3000.
-- **app2express/** — Same books API rebuilt with Express 5. Data persists to `books.json` on every write. Port 3000.
-- **webserver0/** — Minimal Node HTTP server serving static files from `../public` with endpoints: `/ls` (directory listing), `/download`, `/client` (query param display), `/user`. Binds to `127.0.0.1:3000`.
+- **app1/** — Books CRUD API built with raw Node.js `http` module. No framework. In-memory data loaded from `books.json` on startup (changes are lost on restart). Port 3000.
+- **app2express/** — Same books API rebuilt with Express 5. Data persists to `books.json` on every write. Port 3000. The top of `server.js` contains a Ukrainian comment block with a modification plan (reader/librarian modes, auth, search/sort).
+- **webserver0/** — Minimal Node HTTP server serving static files from `../public` (must be run from `webserver0/`). Endpoints: `/ls` (directory listing with traversal guard), `/download`, `/client` (query param display), `/user`. Binds to `127.0.0.1:3000`.
 
 ### NLP/ML Pipeline (hmi_models/)
 - **hmi_models/scripts/prepare_corpus.py** — Reads text files from corpus dir, tokenizes with GPT2TokenizerFast, chunks into overlapping blocks, saves HF dataset to disk.
 - **hmi_models/scripts/train.py** — Fine-tunes GPT2 using HuggingFace Trainer API. Supports `--small_run` flag for CPU debugging with a tiny model config.
 - **hmi_models/infer.py** — CLI inference for the trained GPT2 model.
-- Tokenizer/model base lives in `directory_on_my_computer/` (hardcoded absolute path).
+- **hmi_models/ex2.py**, **test.py**, **final_test.py** — Additional educational scripts (not part of the core training pipeline).
+- **hmi_models/README.md** — Has its own quick-start instructions for the ML pipeline.
+- Base model and tokenizer live in `directory_on_my_computer/` (full GPT2 weights: `model.safetensors`, `config.json`, tokenizer files). Referenced by absolute path in training scripts.
 
 ### Static Web Content
 - Root-level `index.html` — Main portfolio page (Bootstrap 5) linking to all experiments and labs.
@@ -67,4 +69,5 @@ Open `lab4.ipynb` or `lab6.ipynb` with Jupyter: `jupyter notebook lab4.ipynb`
 - **`books.json`** must be valid JSON or the server crashes on startup. In app1, data is in-memory only (lost on restart). In app2express, writes persist to disk.
 - **`word_embeddings.pkl`** is a ~274MB binary — never read it into memory indiscriminately. It's referenced from notebooks.
 - **Path resolution**: webserver0 resolves `baseDir` as `../public` relative to its own directory — run it from `webserver0/`.
-- **ML hardcoded paths**: `directory_on_my_computer/` contains the base GPT2 tokenizer and is referenced by absolute path `/home/cc/Desktop/i22/directory_on_my_computer/` in training scripts.
+- **ML hardcoded paths**: `directory_on_my_computer/` contains the base GPT2 model and tokenizer and is referenced by absolute path `/home/cc/Desktop/i22/directory_on_my_computer/` in training scripts.
+- **`.claude/settings.local.json`** exists with local permission allowlists — do not overwrite without review.

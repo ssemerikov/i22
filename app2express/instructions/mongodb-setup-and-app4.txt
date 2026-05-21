@@ -1,0 +1,317 @@
+Iнструкцiя: Створення бази даних MongoDB Atlas та конвертація app2express у версію app4
+
+
+Цей документ описує, як створити безкоштовну базу даних MongoDB Atlas і переробити проєкт app2express так, щоб дані книг та користувачів зберігалися у базі даних замість JSON-файлів.
+
+
+1. Реєстрація та створення кластера MongoDB Atlas
+
+1.1. Перейдіть на https://cloud.mongodb.com і зареєструйтеся (можна через Google-акаунт).
+
+1.2. Після входу натисніть Build a Database (або Deploy).
+
+1.3. Оберіть Shared (Free) — це безкоштовний кластер M0.
+
+1.4. Налаштуйте кластер:
+
+Cloud Provider — AWS, GCP або Azure (AWS рекомендується).
+
+Region — оберіть найближчий до вас регіон (наприклад, Frankfurt eu-central-1 для AWS).
+
+Cluster Tier — M0 Sandbox (Free).
+
+Cluster Name — залиште Cluster0 або вкажіть свою назву.
+
+1.5. Натисніть Create Deployment. Створення займе 1-3 хвилини.
+
+
+2. Налаштування доступу до бази
+
+2.1. Database Access (користувачі бази даних):
+
+Перейдіть у лівому меню Database Access.
+
+Натисніть Add New Database User.
+
+Authentication Method: Password.
+
+Username — вкажіть ім'я користувача, наприклад appuser.
+
+Password — встановіть пароль і ЗАПАМ'ЯТАЙТЕ його (або згенеруйте автоматично та скопіюйте).
+
+Database User Privileges: Read and write to any database.
+
+Натисніть Add User.
+
+2.2. Network Access (IP-адреси):
+
+Перейдіть у лівому меню Network Access.
+
+Натисніть Add IP Address.
+
+Якщо ви тестуєте локально, додайте свою поточну IP: натисніть Add Current IP Address.
+
+Для роботи з Render/Fly.io додайте доступ з будь-якої IP-адреси:
+
+Натисніть Add IP Address, введіть 0.0.0.0/0 і натисніть Confirm.
+
+Увага: 0.0.0.0/0 дозволяє підключення з будь-якої точки світу. Це зручно для хмарного хостингу, але зменшує безпеку. У продакшені обмежте IP адресами вашого сервісу.
+
+
+3. Отримання рядка підключення (connection string)
+
+3.1. Перейдіть у Database — Clusters і натисніть Connect навпроти вашого кластера.
+
+3.2. Оберіть Drivers — Node.js.
+
+3.3. Скопіюйте рядок підключення. Він виглядатиме приблизно так:
+
+mongodb+srv://appuser:password@cluster0.xxxxx.mongodb.net/library?retryWrites=true&w=majority
+
+Замініть password на реальний пароль користувача appuser.
+
+Замініть library на назву вашої бази даних (наприклад, app4db).
+
+Запишіть цей рядок — він знадобиться для налаштування сервера.
+
+
+4. Підготовка проєкту app4
+
+Створіть копію проєкту:
+
+cp -r app2express app4
+
+Перейдіть у папку:
+
+cd app4
+
+Встановіть MongoDB-драйвер і dotenv:
+
+npm install mongodb dotenv
+
+
+5. Налаштування змінних середовища
+
+Створіть файл .env у папці app4:
+
+MONGODB_URI=mongodb+srv://appuser:password@cluster0.xxxxx.mongodb.net/app4db?retryWrites=true&w=majority
+
+Замініть appuser, password та xxxxx на реальні значення з вашого кластера.
+
+Додайте .env у .gitignore, щоб не викладати пароль у репозиторій:
+
+echo ".env" >> .gitignore
+
+
+6. Конвертація server.js для роботи з MongoDB
+
+Відкрийте app4/server.js і внесіть наступні зміни.
+
+6.1. Додайте підключення MongoDB на початку файлу, після існуючих require:
+
+require('dotenv').config();
+const { MongoClient, ObjectId } = require('mongodb');
+
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri);
+
+let db;
+let booksCollection;
+let usersCollection;
+
+async function connectDB() {
+    await client.connect();
+    db = client.db('app4db');
+    booksCollection = db.collection('books');
+    usersCollection = db.collection('users');
+    console.log('Підключено до MongoDB Atlas');
+}
+
+6.2. Видаліть або закоментуйте функції loadData та saveData, які працюють з файлами:
+
+// async function loadData(filePath) { ... }
+// async function saveData(filePath, data) { ... }
+
+6.3. Замініть глобальні змінні books і users на роботу з колекціями. У всіх маршрутах замініть операції з масивами books та users на виклики до MongoDB.
+
+Приклади замін для кожного маршруту:
+
+GET /api/books:
+
+Замість: res.json([...books]);
+
+Використовуйте: const books = await booksCollection.find({}).toArray(); res.json(books);
+
+GET /api/genres:
+
+Замість: const genres = [...new Set(books.map(b => b.genre).filter(g => g))];
+
+Використовуйте:
+
+const genres = await booksCollection.distinct('genre', { genre: { $ne: '' } });
+genres.sort();
+
+POST /api/books:
+
+Замість додавання у масив books та виклику saveData:
+
+const newBook = {
+    title: title.trim(),
+    author: author.trim(),
+    genre: genre ? genre.trim() : '',
+    year: year ? parseInt(year) : null,
+    createdAt: new Date().toISOString()
+};
+const result = await booksCollection.insertOne(newBook);
+newBook._id = result.insertedId;
+res.status(201).json(newBook);
+
+Примітка: у MongoDB первинний ключ — _id (ObjectId). Можна залишити його або додати окреме числове поле id для сумісності з фронтендом.
+
+PUT /api/books/:id:
+
+Замість пошуку у масиві:
+
+const result = await booksCollection.updateOne(
+    { id: id },
+    { $set: { title: title.trim(), author: author.trim(), genre: genre ? genre.trim() : '', year: year ? parseInt(year) : null } }
+);
+
+DELETE /api/books/:id:
+
+await booksCollection.deleteOne({ id: id });
+
+6.4. Для користувачів аналогічно замініть операції з масивом users на виклики usersCollection.
+
+POST /api/auth/login:
+
+const user = await usersCollection.findOne({ username });
+
+POST /api/users:
+
+const newUser = {
+    username,
+    passwordHash: hashPassword(password),
+    role,
+    createdAt: new Date().toISOString()
+};
+await usersCollection.insertOne(newUser);
+
+GET /api/users:
+
+const users = await usersCollection.find({}, { projection: { passwordHash: 0 } }).toArray();
+
+DELETE /api/users/:id:
+
+await usersCollection.deleteOne({ id: id });
+
+6.5. Стартову функцію переробіть так, щоб вона спочатку підключалася до MongoDB, а потім запускала сервер:
+
+async function startServer() {
+    await connectDB();
+    app.listen(port, () => {
+        console.log(`Сервер працює на порту ${port}`);
+    });
+}
+
+startServer().catch(err => {
+    console.error('Помилка запуску сервера:', err);
+    process.exit(1);
+});
+
+
+7. Ініціалізація даних (міграція з JSON у MongoDB)
+
+Створіть файл app4/seed.js для перенесення існуючих даних:
+
+require('dotenv').config();
+const { MongoClient } = require('mongodb');
+const fs = require('fs');
+
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri);
+
+async function seed() {
+    await client.connect();
+    const db = client.db('app4db');
+    const booksCollection = db.collection('books');
+    const usersCollection = db.collection('users');
+
+    // Очистити колекції перед заповненням
+    await booksCollection.deleteMany({});
+    await usersCollection.deleteMany({});
+
+    // Завантажити дані з JSON-файлів
+    const booksData = JSON.parse(fs.readFileSync('books.json', 'utf8'));
+    const usersData = JSON.parse(fs.readFileSync('users.json', 'utf8'));
+
+    if (booksData.length > 0) {
+        await booksCollection.insertMany(booksData);
+        console.log(`Додано ${booksData.length} книг`);
+    }
+
+    if (usersData.length > 0) {
+        await usersCollection.insertMany(usersData);
+        console.log(`Додано ${usersData.length} користувачів`);
+    }
+
+    await client.close();
+    console.log('Міграція завершена');
+}
+
+seed().catch(console.error);
+
+Запустіть міграцію:
+
+node seed.js
+
+Перевірте у панелі MongoDB Atlas (Database — Browse Collections), що колекції books і users створені і містять дані.
+
+
+8. Оновлення фронтенду (якщо потрібно)
+
+Якщо ви перейшли на використання _id MongoDB замість числового id, фронтенд client.js потрібно оновити. У функції deleteBook та editBook замість числового id використовуйте _id у вигляді рядка:
+
+async function deleteBook(id) {
+    try {
+        const response = await apiFetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        ...
+    }
+}
+
+Якщо ви хочете зберегти числове id для сумісності з фронтендом, залиште поле id у документах MongoDB і використовуйте його як раніше. MongoDB автоматично додасть своє _id, але ви можете ігнорувати його.
+
+
+9. Деплой app4 на Render (або Fly.io)
+
+9.1. Переконайтеся, що файл .env додано у .gitignore.
+
+9.2. У панелі Render додайте Environment Variable:
+
+Key: MONGODB_URI
+Value: ваш повний рядок підключення з Atlas
+
+9.3. Налаштуйте Web Service для папки app4 (див. інструкцію deploy-render-and-alternative.txt).
+
+9.4. Запустіть seed.js один раз локально або через консоль Render (Shell), щоб ініціалізувати дані.
+
+
+10. Перевірка
+
+Запустіть сервер локально:
+
+node server.js
+
+Відкрийте http://localhost:3000 і перевірте:
+
+Завантаження списку книг.
+
+Пошук і сортування.
+
+Аутентифікацію (lib/lib).
+
+Додавання, редагування та видалення книг.
+
+Роботу адмін-панелі (admin/admin).
+
+Переконайтеся, що після перезапуску сервера дані залишаються у базі даних MongoDB Atlas.

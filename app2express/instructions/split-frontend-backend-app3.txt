@@ -1,0 +1,199 @@
+Iнструкцiя: Розділення app2express на frontend (GitHub Pages) та backend (Render) — версія app3
+
+
+Цей документ описує, як розділити монолітний проєкт app2express на дві частини: статичний фронтенд, який розміщується на GitHub Pages, і окремий бекенд-API на Render.com. Це типова архітектура для веб-додатків.
+
+
+1. Структура проєкту app3
+
+Створіть у вашому репозиторії дві нові папки:
+
+app3-backend/ — для Express-сервера (тільки API, без статичних файлів).
+
+app3-frontend/ — для статичних файлів з папки public (HTML, CSS, JS).
+
+Команда в корені репозиторію:
+
+mkdir app3-backend app3-frontend
+
+
+2. Підготовка бекенду (app3-backend)
+
+Скопіюйте всі файли бекенду з app2express у app3-backend:
+
+cp app2express/server.js app3-backend/
+cp app2express/package.json app3-backend/
+cp app2express/package-lock.json app3-backend/
+cp app2express/books.json app3-backend/
+cp app2express/users.json app3-backend/
+
+Відкрийте app3-backend/server.js і внесіть наступні зміни.
+
+2.1. Зміна порту
+
+Знайдіть:
+
+const port = 3000;
+
+Замініть на:
+
+const port = process.env.PORT || 3000;
+
+2.2. Оновлення CORS
+
+Поточний CORS дозволяє запити з будь-якого джерела (wildcard). Для розділеної архітектури краще обмежити дозволені джерела, але для початкового тестування можна залишити wildcard. Якщо ви хочете обмежити, замініть блок CORS у server.js:
+
+Замість:
+
+res.setHeader('Access-Control-Allow-Origin', '*');
+
+Вкажіть конкретний домен GitHub Pages (замініть username на ваше ім'я користувача GitHub):
+
+res.setHeader('Access-Control-Allow-Origin', 'https://username.github.io');
+
+Або залиште зірочку для тестування.
+
+2.3. Видалення статичного middleware
+
+Знайдіть і ВИДАЛІТЬ цей рядок у кінці файлу:
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+Тепер сервер обслуговуватиме тільки API-ендпоїнти, а не статичні файли.
+
+2.4. Оновлення package.json
+
+Додайте engines у app3-backend/package.json:
+
+{
+  "name": "app3-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
+
+
+3. Деплой бекенду на Render
+
+3.1. Зробіть коміт і завантажте на GitHub:
+
+git add app3-backend/
+git commit -m "Додано app3-backend (API only)"
+git push origin main
+
+3.2. У панелі Render натисніть New — Web Service.
+
+3.3. Підключіть репозиторій і вкажіть:
+
+Root Directory: app3-backend
+
+Build Command: npm install
+
+Start Command: node server.js
+
+Runtime: Node
+
+3.4. Додайте змінну середовища NODE_ENV=production.
+
+3.5. Натисніть Create Web Service.
+
+Після деплою запам'ятайте URL вашого бекенду. Він буде приблизно таким:
+
+https://app3-backend-xxxxx.onrender.com
+
+
+4. Підготовка фронтенду (app3-frontend)
+
+Скопіюйте файли статичного фронтенду:
+
+cp -r app2express/public/* app3-frontend/
+
+Відкрийте app3-frontend/client.js і знайдіть на початку два рядки:
+
+const API_URL = `${window.location.origin}/api/books`;
+const AUTH_URL = `${window.location.origin}/api/auth`;
+
+Замініть їх на абсолютні URL вашого бекенду на Render (використовуйте реальний URL, який ви отримали після деплою):
+
+const API_URL = 'https://app3-backend-xxxxx.onrender.com/api/books';
+const AUTH_URL = 'https://app3-backend-xxxxx.onrender.com/api/auth';
+
+Також знайдіть у файлі звернення до /api/users і замініть їх на повний URL. Знайдіть рядки:
+
+await apiFetch(`${window.location.origin}/api/users`)
+
+і
+
+await apiFetch(`${window.location.origin}/api/users/${id}`)
+
+Замініть на:
+
+await apiFetch('https://app3-backend-xxxxx.onrender.com/api/users')
+
+і
+
+await apiFetch(`https://app3-backend-xxxxx.onrender.com/api/users/${id}`)
+
+Збережіть файл client.js.
+
+
+5. Розміщення фронтенду на GitHub Pages
+
+5.1. Створіть окремий репозиторій на GitHub (наприклад, app3-frontend).
+
+5.2. Ініціалізуйте Git у папці app3-frontend і завантажте файли:
+
+cd app3-frontend
+git init
+git add .
+git commit -m "Початковий фронтенд для app3"
+git branch -M main
+git remote add origin https://github.com/username/app3-frontend.git
+git push -u origin main
+
+5.3. Увімкніть GitHub Pages:
+
+Перейдіть у Settings — Pages вашого репозиторію app3-frontend.
+
+У розділі Source оберіть Deploy from a branch.
+
+Branch: main, Folder: / (root).
+
+Натисніть Save.
+
+Через кілька хвилин ваш сайт буде доступний за адресою:
+
+https://username.github.io/app3-frontend/
+
+Якщо ви використовуєте користувацький домен (username.github.io без назви репозиторія), створіть репозиторій з назвою username.github.io і завантажте файли туди.
+
+
+6. Перевірка роботи
+
+Відкрийте фронтенд у браузері: https://username.github.io/app3-frontend/
+
+Ви маєте побачити стартову сторінку бібліотеки.
+
+Натисніть Я читач — має завантажитися список книг з бекенду на Render.
+
+Увійдіть як бібліотекар (логін lib, пароль lib) — має спрацювати аутентифікація через бекенд.
+
+Спробуйте додати книгу — запит має піти на Render і зберегтися у JSON-файлі на сервері.
+
+
+7. Важливі зауваження
+
+CORS: переконайтеся, що бекенд дозволяє запити з вашого GitHub Pages домену. Якщо ви бачите помилку CORS у консолі браузера, перевірте налаштування Access-Control-Allow-Origin у server.js.
+
+LocalStorage: токен аутентифікації зберігається у localStorage браузера під ключем libraryToken. Це працює незалежно від того, де розміщений фронтенд.
+
+Зображення: якщо у папці public були зображення (cas-email.jpeg, cas-url.jpg, fig2.png), вони теж мають бути у app3-frontend/.
+
+Безпека: у продакшені рекомендується змінити паролі за замовчуванням (admin/admin, user/user, lib/lib) або додати середовище з окремими обліковими даними.
