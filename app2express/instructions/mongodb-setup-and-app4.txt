@@ -68,6 +68,8 @@ Database User Privileges: Read and write to any database.
 
 mongodb+srv://appuser:password@cluster0.xxxxx.mongodb.net/library?retryWrites=true&w=majority
 
+(спеціальні символи в паролі (@, :, /, #) потрібно URL-кодувати. Це часта причина помилок підключення. MongoDB офіційно вимагає percent-encoding для таких символів.)
+
 Замініть password на реальний пароль користувача appuser.
 
 Замініть library на назву вашої бази даних (наприклад, app4db).

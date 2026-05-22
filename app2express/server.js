@@ -3,6 +3,10 @@ const path = require('path');
 const crypto = require('crypto');
 const express = require('express');
 
+//const port = 3000;
+const port = process.env.PORT || 3000;
+
+
 const app = express();
 app.use(express.json());
 
@@ -45,7 +49,6 @@ app.use((req, res, next) => {
     next();
 });
 
-const port = 3000;
 const BOOKS_FILE = path.join(__dirname, 'books.json');
 const USERS_FILE = path.join(__dirname, 'users.json');
 const SESSION_TTL = 2 * 60 * 60 * 1000; // 2 години

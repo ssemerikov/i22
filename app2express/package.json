@@ -4,8 +4,10 @@
   "description": "2 спроба створення веб-додатку із Node.js",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
+  },
+  "engines": {
+    "node": "22.x"
   },
   "keywords": [],
   "author": "Певний студент",

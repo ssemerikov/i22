@@ -42,7 +42,7 @@ const port = process.env.PORT || 3000;
 git add server.js package.json
 git commit -m "Підготовка до деплою: порт з env та engines"
 
-Завантажте зміни на GitHub (render.com працює тільки з GitHub-репозиторіями).
+Завантажте зміни на GitHub (Render найзручніше працює з GitHub, але також підтримує GitLab і Bitbucket.).
 
 
 2. Реєстрація на Render.com
@@ -71,10 +71,16 @@ Runtime — Node.
 Build Command — npm install
 
 Start Command — node server.js
-n
+
 У полі Root Directory вкажіть app2express, якщо ваш репозиторій має кореневу папку з такою назвою. Якщо файли server.js і package.json лежать у корені репозиторія, залиште поле порожнім.
 
 Натисніть Create Web Service.
+
+Для production deployment сучасніше й правильніше замість npm install:
+
+npm ci
+
+особливо якщо є package-lock.json.
 
 
 4. Налаштування змінних середовища (Environment Variables)
@@ -85,6 +91,8 @@ n
 
 Key: NODE_ENV
 Value: production
+
+(код не повинен залежати від dev-only middleware або hot reload)
 
 Натисніть Save Changes.
 
@@ -116,7 +124,7 @@ curl https://app2express-api.onrender.com/api/books
 
 Безкоштовний Web Service на Render має такі обмеження:
 
-RAM — 512 МБ. Для Express-сервера з JSON-файлами цього достатньо.
+RAM — 512 МБ. Для Express-сервера з JSON-файлами цього достатньо. JSON-файли підходять лише для навчальних або тимчасових проєктів. Дані можуть втрачатися при redeploy.
 
 CPU — спільний (shared), швидкість обмежена.
 
@@ -124,82 +132,5 @@ Spin down — сервер зупиняється після 15 хвилин б�
 
 Бази даних — безкоштовна PostgreSQL база даних видаляється через 30 днів. Для постійного зберігання використовуйте MongoDB Atlas (див. окрему інструкцію mongodb-setup-and-app4.txt).
 
-Немає підтримки кастомних доменів на безкоштовному тарифі.
+Render автоматично видає TLS/HTTPS.
 
-
-7. Альтернатива: Fly.io
-
-Якщо cold starts на Render вас не влаштовують, Fly.io — хороша безкоштовна альтернатива. ВМ на Fly не зупиняються через бездіяльність.
-
-7.1. Реєстрація
-
-Перейдіть на https://fly.io і зареєструйтеся. Потрібна банківська картка для верифікації (кошти не знімаються, якщо ви залишаєтесь у межах безкоштовного ліміту).
-
-7.2. Встановлення flyctl
-
-У Linux/macOS:
-
-curl -L https://fly.io/install.sh | sh
-
-Після встановлення додайте flyctl у PATH або перезапустіть термінал.
-
-Увійдіть у обліковий запис:
-
-fly auth login
-
-7.3. Запуск проєкту
-
-Перейдіть у папку проєкту (app2express):
-
-cd app2express
-
-Запустіть ініціалізацію:
-
-fly launch
-
-Fly задасть кілька питань:
-
-App Name — унікальна назва (наприклад, app2express-api).
-
-Region — оберіть найближчий (fra — Frankfurt).
-
-PostgreSQL — відповідайте No (ми використовуємо JSON-файли або MongoDB).
-
-Redis — відповідайте No.
-
-Fly автоматично створить Dockerfile та файл fly.toml на основі вашого package.json.
-
-7.4. Деплой
-
-Запустіть:
-
-fly deploy
-
-Після завершення ви отримаєте URL типу:
-
-https://app2express-api.fly.dev
-
-7.5. Переваги Fly.io над Render
-
-Always-on — ВМ не зупиняються після бездіяльності.
-
-3 shared-CPU-1x машини безкоштовно.
-
-3 GB persistent volumes для збереження файлів.
-
-Глобальні регіони для мінімальної затримки.
-
-7.6. Обмеження Fly.io
-
-Потрібна картка для реєстрації.
-
-Легко перевищити безкоштовні ліміти (стежте за лімітами у панелі).
-
-Бази даних не є повністю керованими — зазвичай підключають зовнішні сервіси (MongoDB Atlas, Neon, Supabase).
-
-
-Підсумок
-
-Render.com — найпростіший варіант для початку, але має cold starts.
-
-Fly.io — кращий вибір, якщо вам потрібен always-on сервер і ви готові додати картку для верифікації.
