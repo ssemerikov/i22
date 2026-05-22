@@ -68,9 +68,9 @@ Branch — main (або інша гілка, з якої ви хочете де�
 
 Runtime — Node.
 
-Build Command — npm install
+Build Command — npm install / yarn
 
-Start Command — node server.js
+Start Command — node server.js / npm start / yart start
 
 У полі Root Directory вкажіть app2express, якщо ваш репозиторій має кореневу папку з такою назвою. Якщо файли server.js і package.json лежать у корені репозиторія, залиште поле порожнім.
 
